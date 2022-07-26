@@ -2,19 +2,25 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Form extends Component {
+  handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('funcionou');
+  }
+
   render() {
     const { cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3, cardImage,
       cardRare, cardTrunfo, isSaveButtonDisabled, onInputChange,
       onSaveButtonClick } = this.props;
-    //   hasTrunfo, ( ain da não usado)
+    //   hasTrunfo, ( ainda não usado)
     return (
-      <form>
+      <form onSubmit={ this.handleSubmit }>
         <label htmlFor="name-input">
           <input
             onChange={ onInputChange }
             value={ cardName }
             data-testid="name-input"
             type="text"
+            name="nameInput"
           />
         </label>
         <textarea
@@ -23,15 +29,18 @@ class Form extends Component {
           data-testid="description-input"
           cols="30"
           rows="10"
+          name="descriptionInput"
         >
           text
         </textarea>
-        <label htmlFor="attr1-input">
+        <label htmlFor="attrCard1">
           <input
             onChange={ onInputChange }
             value={ cardAttr1 }
             data-testid="attr1-input"
             type="number"
+            name="attrCard1"
+            id="attrCard1"
           />
         </label>
         <label htmlFor="attr2-input">
@@ -40,6 +49,7 @@ class Form extends Component {
             value={ cardAttr2 }
             data-testid="attr2-input"
             type="number"
+            name="attrCard2"
           />
         </label>
         <label htmlFor="attr3-input">
@@ -48,6 +58,7 @@ class Form extends Component {
             value={ cardAttr3 }
             data-testid="attr3-input"
             type="number"
+            name="attrCard3"
           />
         </label>
         <label htmlFor="image-input">
@@ -56,6 +67,7 @@ class Form extends Component {
             value={ cardImage }
             data-testid="image-input"
             type="text"
+            name="imageInput"
           />
         </label>
         <label htmlFor="rare-input">
@@ -76,6 +88,7 @@ class Form extends Component {
             checked={ cardTrunfo }
             data-testid="trunfo-input"
             type="checkbox"
+            name="trunfo"
           />
         </label>
         <button

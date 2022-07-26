@@ -8,24 +8,51 @@ class App extends React.Component {
     this.state = {
       nameInput: '',
       descriptionInput: '',
-      attrCard1: '',
+      attrCard1: 0,
+      attrCard2: 0,
+      attrCard3: 0,
+      trunfo: true,
+      buttonDisabled: true,
+      imageInput: '',
     };
   }
 
   handleChange = (event) => {
+    const { value, name } = event.target;
     this.setState({
-      nameInput: event.target.value,
-      descriptionInput: event.target.value,
-      attrCard1: event.target.value,
-      attrCard2: event.target.value,
-      attrCard3: event.target.value,
-      trunfo: event.target.value,
+      [name]: value,
+      // descriptionInput: value,
+      // attrCard1: value,
+      // attrCard2: value,
+      // attrCard3: value,
+      // trunfo: value,
+      // buttonDisabled: value,
+    }, () => {
+      let trueOrFalse = false;
+      const limitDos3Atributos = 210;
+      const limit1Atributo = 90;
+      const { nameInput, descriptionInput, attrCard1,
+        attrCard2, attrCard3, imageInput } = this.state;
+      const card1 = Number(attrCard1);
+      const card2 = Number(attrCard2);
+      const card3 = Number(attrCard3);
+
+      if (nameInput.length === 0 || descriptionInput.length === 0
+      || attrCard1.length === 0 || attrCard2.length === 0
+      || attrCard3.length === 0
+      || imageInput.length === 0
+      || (card1 + card2 + card3) > limitDos3Atributos
+      || card1 > limit1Atributo
+      || card2 > limit1Atributo
+      || card3 > limit1Atributo
+      || card1 < 0 || card2 < 0 || card3 < 0) trueOrFalse = true;
+      this.setState({ buttonDisabled: trueOrFalse });
     });
   }
 
   render() {
     const { nameInput, descriptionInput,
-      attrCard1, attrCard2, attrCard3, trunfo } = this.state;
+      attrCard1, attrCard2, attrCard3, trunfo, buttonDisabled, imageInput } = this.state;
     return (
       <div>
         <h1>Tryunfo</h1>
@@ -36,7 +63,9 @@ class App extends React.Component {
           cardAttr2={ attrCard2 }
           cardAttr3={ attrCard3 }
           cardTrunfo={ trunfo }
+          cardImage={ imageInput }
           onInputChange={ this.handleChange }
+          isSaveButtonDisabled={ buttonDisabled }
         />
         <Card
           cardName={ nameInput }
@@ -45,6 +74,7 @@ class App extends React.Component {
           cardAttr2={ attrCard2 }
           cardAttr3={ attrCard3 }
           cardTrunfo={ trunfo }
+          cardImage={ imageInput }
           onInputChange={ this.handleChange }
         />
       </div>
