@@ -14,19 +14,35 @@ class App extends React.Component {
       trunfo: true,
       buttonDisabled: true,
       imageInput: '',
+      rareCard: '',
+      afterSubmit: [],
     };
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.setState((prevState) => {
+      const { nameInput, descriptionInput, attrCard1,
+        attrCard2, attrCard3, trunfo, imageInput } = this.state;
+      return ({
+        afterSubmit: [...prevState.afterSubmit, nameInput, descriptionInput,
+          attrCard1, attrCard2, attrCard3, trunfo, imageInput],
+        nameInput: '',
+        descriptionInput: '',
+        imageInput: '',
+        attrCard1: 0,
+        attrCard2: 0,
+        attrCard3: 0,
+        rareCard: 'nomral',
+        trunfo: '',
+      });
+    });
   }
 
   handleChange = (event) => {
     const { value, name } = event.target;
     this.setState({
       [name]: value,
-      // descriptionInput: value,
-      // attrCard1: value,
-      // attrCard2: value,
-      // attrCard3: value,
-      // trunfo: value,
-      // buttonDisabled: value,
     }, () => {
       let trueOrFalse = false;
       const limitDos3Atributos = 210;
@@ -37,8 +53,10 @@ class App extends React.Component {
       const card2 = Number(attrCard2);
       const card3 = Number(attrCard3);
 
-      if (nameInput.length === 0 || descriptionInput.length === 0
-      || attrCard1.length === 0 || attrCard2.length === 0
+      if (nameInput.length === 0
+      || descriptionInput.length === 0
+      || attrCard1.length === 0
+      || attrCard2.length === 0
       || attrCard3.length === 0
       || imageInput.length === 0
       || (card1 + card2 + card3) > limitDos3Atributos
@@ -52,16 +70,19 @@ class App extends React.Component {
 
   render() {
     const { nameInput, descriptionInput,
-      attrCard1, attrCard2, attrCard3, trunfo, buttonDisabled, imageInput } = this.state;
+      attrCard1, attrCard2, attrCard3, trunfo,
+      buttonDisabled, imageInput, rareCard } = this.state;
     return (
       <div>
         <h1>Tryunfo</h1>
         <Form
+          isSubmit={ this.handleSubmit }
           cardName={ nameInput }
           cardDescription={ descriptionInput }
           cardAttr1={ attrCard1 }
           cardAttr2={ attrCard2 }
           cardAttr3={ attrCard3 }
+          cardRare={ rareCard }
           cardTrunfo={ trunfo }
           cardImage={ imageInput }
           onInputChange={ this.handleChange }

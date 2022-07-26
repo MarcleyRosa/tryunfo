@@ -2,18 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Form extends Component {
-  handleSubmit = (event) => {
-    event.preventDefault();
-    console.log('funcionou');
-  }
-
   render() {
     const { cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3, cardImage,
-      cardRare, cardTrunfo, isSaveButtonDisabled, onInputChange,
+      cardRare, cardTrunfo, isSaveButtonDisabled, onInputChange, isSubmit,
       onSaveButtonClick } = this.props;
     //   hasTrunfo, ( ainda não usado)
     return (
-      <form onSubmit={ this.handleSubmit }>
+      <form onSubmit={ isSubmit }>
         <label htmlFor="name-input">
           <input
             onChange={ onInputChange }
@@ -116,6 +111,7 @@ Form.propTypes = {
   isSaveButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onSaveButtonClick: PropTypes.func.isRequired,
+  isSubmit: PropTypes.func.isRequired,
 };
 
 export default Form;
