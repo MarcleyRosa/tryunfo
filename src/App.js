@@ -25,9 +25,16 @@ class App extends React.Component {
     this.setState((prevState) => {
       const { nameInput, descriptionInput, attrCard1,
         attrCard2, attrCard3, trunfo, imageInput } = this.state;
+      const object = {
+        nameInput,
+        descriptionInput,
+        attrCard1,
+        attrCard2,
+        attrCard3,
+        trunfo,
+        imageInput };
       return ({
-        afterSubmit: [...prevState.afterSubmit, nameInput, descriptionInput,
-          attrCard1, attrCard2, attrCard3, trunfo, imageInput],
+        afterSubmit: [...prevState.afterSubmit, object],
         nameInput: '',
         descriptionInput: '',
         imageInput: '',
@@ -73,7 +80,7 @@ class App extends React.Component {
   render() {
     const { nameInput, descriptionInput,
       attrCard1, attrCard2, attrCard3, trunfo,
-      buttonDisabled, imageInput, rareCard, getTrunfo } = this.state;
+      buttonDisabled, imageInput, rareCard, getTrunfo, afterSubmit } = this.state;
     return (
       <div>
         <h1>Tryunfo</h1>
@@ -101,6 +108,18 @@ class App extends React.Component {
           cardImage={ imageInput }
           onInputChange={ this.handleChange }
         />
+        { afterSubmit.map((card) => (<Card
+          key={ card.nameInput }
+          cardName={ card.nameInput }
+          cardDescription={ card.descriptionInput }
+          cardAttr1={ card.attrCard1 }
+          cardAttr2={ card.attrCard2 }
+          cardAttr3={ card.attrCard3 }
+          cardTrunfo={ card.trunfo }
+          cardImage={ card.imageInput }
+          onInputChange={ this.handleChange }
+        />
+        ))}
       </div>
     );
   }
