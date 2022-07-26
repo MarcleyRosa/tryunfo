@@ -11,10 +11,11 @@ class App extends React.Component {
       attrCard1: 0,
       attrCard2: 0,
       attrCard3: 0,
-      trunfo: true,
+      trunfo: false,
       buttonDisabled: true,
       imageInput: '',
       rareCard: '',
+      getTrunfo: true,
       afterSubmit: [],
     };
   }
@@ -34,7 +35,8 @@ class App extends React.Component {
         attrCard2: 0,
         attrCard3: 0,
         rareCard: 'nomral',
-        trunfo: '',
+        trunfo: true,
+        getTrunfo: false,
       });
     });
   }
@@ -71,13 +73,14 @@ class App extends React.Component {
   render() {
     const { nameInput, descriptionInput,
       attrCard1, attrCard2, attrCard3, trunfo,
-      buttonDisabled, imageInput, rareCard } = this.state;
+      buttonDisabled, imageInput, rareCard, getTrunfo } = this.state;
     return (
       <div>
         <h1>Tryunfo</h1>
         <Form
           isSubmit={ this.handleSubmit }
           cardName={ nameInput }
+          hasTrunfo={ getTrunfo }
           cardDescription={ descriptionInput }
           cardAttr1={ attrCard1 }
           cardAttr2={ attrCard2 }

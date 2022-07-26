@@ -4,12 +4,13 @@ import PropTypes from 'prop-types';
 class Form extends Component {
   render() {
     const { cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3, cardImage,
-      cardRare, cardTrunfo, isSaveButtonDisabled, onInputChange, isSubmit,
+      cardRare, cardTrunfo, isSaveButtonDisabled, onInputChange, hasTrunfo, isSubmit,
       onSaveButtonClick } = this.props;
-    //   hasTrunfo, ( ainda não usado)
+
     return (
       <form onSubmit={ isSubmit }>
         <label htmlFor="name-input">
+          Nome
           <input
             onChange={ onInputChange }
             value={ cardName }
@@ -18,6 +19,7 @@ class Form extends Component {
             name="nameInput"
           />
         </label>
+        Descrição da Carta
         <textarea
           onChange={ onInputChange }
           value={ cardDescription }
@@ -29,6 +31,7 @@ class Form extends Component {
           text
         </textarea>
         <label htmlFor="attrCard1">
+          1° Atributo
           <input
             onChange={ onInputChange }
             value={ cardAttr1 }
@@ -38,6 +41,7 @@ class Form extends Component {
             id="attrCard1"
           />
         </label>
+        2° Atributo
         <label htmlFor="attr2-input">
           <input
             onChange={ onInputChange }
@@ -47,6 +51,7 @@ class Form extends Component {
             name="attrCard2"
           />
         </label>
+        3° Atributo
         <label htmlFor="attr3-input">
           <input
             onChange={ onInputChange }
@@ -56,6 +61,7 @@ class Form extends Component {
             name="attrCard3"
           />
         </label>
+        Imagem
         <label htmlFor="image-input">
           <input
             onChange={ onInputChange }
@@ -65,6 +71,7 @@ class Form extends Component {
             name="imageInput"
           />
         </label>
+        Tipo
         <label htmlFor="rare-input">
           <select
             onChange={ onInputChange }
@@ -78,13 +85,14 @@ class Form extends Component {
           </select>
         </label>
         <label htmlFor="trunfo-input">
-          <input
+          Super Trunfo
+          { hasTrunfo ? <input
             onChange={ onInputChange }
             checked={ cardTrunfo }
             data-testid="trunfo-input"
             type="checkbox"
             name="trunfo"
-          />
+          /> : <p>Você já tem um Super Trunfo em seu baralho</p> }
         </label>
         <button
           onClick={ onSaveButtonClick }
@@ -107,7 +115,7 @@ Form.propTypes = {
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
-  //   hasTrunfo: PropTypes.bool.isRequired,
+  hasTrunfo: PropTypes.bool.isRequired,
   isSaveButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onSaveButtonClick: PropTypes.func.isRequired,
