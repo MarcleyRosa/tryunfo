@@ -15,7 +15,7 @@ class App extends React.Component {
       buttonDisabled: true,
       imageInput: '',
       rareCard: '',
-      getTrunfo: true,
+      getTrunfo: false,
       afterSubmit: [],
     };
   }
@@ -43,7 +43,7 @@ class App extends React.Component {
         attrCard3: 0,
         rareCard: 'nomral',
         trunfo: true,
-        getTrunfo: false,
+        getTrunfo: true,
         buttonDisabled: true,
       });
     });
@@ -84,8 +84,8 @@ class App extends React.Component {
     // console.log(event.target.id);
     // event.target.remove();
     cards.remove();
-    if (getTrunfo === false) {
-      this.setState({ getTrunfo: true });
+    if (getTrunfo === true) {
+      this.setState({ getTrunfo: false });
     }
   }
 

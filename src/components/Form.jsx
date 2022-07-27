@@ -86,13 +86,13 @@ class Form extends Component {
         </label>
         <label htmlFor="trunfo-input">
           Super Trunfo
-          { hasTrunfo ? <input
+          { hasTrunfo ? <p>Você já tem um Super Trunfo em seu baralho</p> : <input
             onChange={ onInputChange }
             checked={ cardTrunfo }
             data-testid="trunfo-input"
             type="checkbox"
             name="trunfo"
-          /> : <p>Você já tem um Super Trunfo em seu baralho</p> }
+          /> }
         </label>
         <button
           onClick={ onSaveButtonClick }
