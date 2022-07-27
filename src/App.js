@@ -77,6 +77,10 @@ class App extends React.Component {
     });
   }
 
+  handleRemove = (event) => {
+    event.target.remove();
+  }
+
   render() {
     const { nameInput, descriptionInput,
       attrCard1, attrCard2, attrCard3, trunfo,
@@ -108,18 +112,20 @@ class App extends React.Component {
           cardImage={ imageInput }
           onInputChange={ this.handleChange }
         />
-        { afterSubmit.map((card) => (<Card
-          key={ card.nameInput }
-          cardName={ card.nameInput }
-          cardDescription={ card.descriptionInput }
-          cardAttr1={ card.attrCard1 }
-          cardAttr2={ card.attrCard2 }
-          cardAttr3={ card.attrCard3 }
-          cardTrunfo={ card.trunfo }
-          cardImage={ card.imageInput }
-          onInputChange={ this.handleChange }
-        />
-        ))}
+        { afterSubmit.map((card) => (
+          <div key={ card.nameInput }>
+            <Card
+              cardName={ card.nameInput }
+              cardDescription={ card.descriptionInput }
+              cardAttr1={ card.attrCard1 }
+              cardAttr2={ card.attrCard2 }
+              cardAttr3={ card.attrCard3 }
+              cardTrunfo={ card.trunfo }
+              cardImage={ card.imageInput }
+              onInputChange={ this.handleChange }
+            />
+            <button type="button" onClick={ this.handleRemove }>Excluir</button>
+          </div>))}
       </div>
     );
   }
