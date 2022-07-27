@@ -44,6 +44,7 @@ class App extends React.Component {
         rareCard: 'nomral',
         trunfo: true,
         getTrunfo: false,
+        buttonDisabled: true,
       });
     });
   }
@@ -78,7 +79,14 @@ class App extends React.Component {
   }
 
   handleRemove = (event) => {
-    event.target.remove();
+    const { getTrunfo } = this.state;
+    const cards = document.getElementById(event.target.id);
+    // console.log(event.target.id);
+    // event.target.remove();
+    cards.remove();
+    if (getTrunfo === false) {
+      this.setState({ getTrunfo: true });
+    }
   }
 
   render() {
@@ -113,7 +121,7 @@ class App extends React.Component {
           onInputChange={ this.handleChange }
         />
         { afterSubmit.map((card) => (
-          <div key={ card.nameInput }>
+          <div id={ card.nameInput } key={ card.descriptionInput }>
             <Card
               cardName={ card.nameInput }
               cardDescription={ card.descriptionInput }
@@ -124,7 +132,14 @@ class App extends React.Component {
               cardImage={ card.imageInput }
               onInputChange={ this.handleChange }
             />
-            <button type="button" onClick={ this.handleRemove }>Excluir</button>
+            <button
+              id={ card.nameInput }
+              type="button"
+              data-testid="delete-button"
+              onClick={ this.handleRemove }
+            >
+              Excluir
+            </button>
           </div>))}
       </div>
     );
