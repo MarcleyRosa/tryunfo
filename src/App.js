@@ -3,14 +3,14 @@ import Form from './components/Form';
 import Card from './components/Card';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       nameInput: '',
       descriptionInput: '',
-      attrCard1: 0,
-      attrCard2: 0,
-      attrCard3: 0,
+      attrCard1: '0',
+      attrCard2: '0',
+      attrCard3: '0',
       trunfo: false,
       buttonDisabled: true,
       imageInput: '',
@@ -38,9 +38,9 @@ class App extends React.Component {
         nameInput: '',
         descriptionInput: '',
         imageInput: '',
-        attrCard1: 0,
-        attrCard2: 0,
-        attrCard3: 0,
+        attrCard1: '0',
+        attrCard2: '0',
+        attrCard3: '0',
         rareCard: 'nomral',
         trunfo: true,
         getTrunfo: true,
@@ -49,8 +49,9 @@ class App extends React.Component {
     });
   }
 
-  handleChange = (event) => {
-    const { value, name } = event.target;
+  handleChange = ({ target }) => {
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const { name } = target;
     this.setState({
       [name]: value,
     }, () => {
@@ -92,12 +93,15 @@ class App extends React.Component {
   render() {
     const { nameInput, descriptionInput,
       attrCard1, attrCard2, attrCard3, trunfo,
-      buttonDisabled, imageInput, rareCard, getTrunfo, afterSubmit } = this.state;
+      buttonDisabled, imageInput, rareCard,
+      getTrunfo, afterSubmit } = this.state;
+
+    // const filterName = afterSubmit.filter((e) => e.nameInput.includes(afterSubmit));
     return (
       <div>
         <h1>Tryunfo</h1>
         <Form
-          isSubmit={ this.handleSubmit }
+          onSaveButtonClick={ this.handleSubmit }
           cardName={ nameInput }
           hasTrunfo={ getTrunfo }
           cardDescription={ descriptionInput }
@@ -117,6 +121,7 @@ class App extends React.Component {
           cardAttr2={ attrCard2 }
           cardAttr3={ attrCard3 }
           cardTrunfo={ trunfo }
+          cardRare={ rareCard }
           cardImage={ imageInput }
           onInputChange={ this.handleChange }
         />
@@ -130,6 +135,7 @@ class App extends React.Component {
               cardAttr3={ card.attrCard3 }
               cardTrunfo={ card.trunfo }
               cardImage={ card.imageInput }
+              cardRare={ card.rareCard }
               onInputChange={ this.handleChange }
             />
             <button
