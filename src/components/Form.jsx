@@ -77,7 +77,7 @@ class Form extends Component {
             onChange={ onInputChange }
             value={ cardRare }
             data-testid="rare-input"
-            name=""
+            name="rareCard"
           >
             <option value="normal">normal</option>
             <option value="raro">raro</option>

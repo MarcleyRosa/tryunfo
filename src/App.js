@@ -14,9 +14,12 @@ class App extends React.Component {
       trunfo: false,
       buttonDisabled: true,
       imageInput: '',
-      rareCard: '',
+      rareCard: 'normal',
       getTrunfo: false,
       afterSubmit: [],
+      filterForNames: '',
+      filterRare: 'todas',
+      filterTrunfo: false,
     };
   }
 
@@ -24,7 +27,7 @@ class App extends React.Component {
     event.preventDefault();
     this.setState((prevState) => {
       const { nameInput, descriptionInput, attrCard1,
-        attrCard2, attrCard3, trunfo, imageInput } = this.state;
+        attrCard2, attrCard3, trunfo, imageInput, rareCard } = this.state;
       const object = {
         nameInput,
         descriptionInput,
@@ -32,7 +35,8 @@ class App extends React.Component {
         attrCard2,
         attrCard3,
         trunfo,
-        imageInput };
+        imageInput,
+        rareCard };
       return ({
         afterSubmit: [...prevState.afterSubmit, object],
         nameInput: '',
@@ -42,8 +46,8 @@ class App extends React.Component {
         attrCard2: '0',
         attrCard3: '0',
         rareCard: 'nomral',
-        trunfo: true,
-        getTrunfo: true,
+        trunfo: false,
+        getTrunfo: trunfo,
         buttonDisabled: true,
       });
     });
@@ -94,9 +98,18 @@ class App extends React.Component {
     const { nameInput, descriptionInput,
       attrCard1, attrCard2, attrCard3, trunfo,
       buttonDisabled, imageInput, rareCard,
-      getTrunfo, afterSubmit } = this.state;
+      getTrunfo, afterSubmit, filterForNames, filterRare, filterTrunfo } = this.state;
 
-    // const filterName = afterSubmit.filter((e) => e.nameInput.includes(afterSubmit));
+    console.log(getTrunfo);
+
+    const filterName = filterRare === 'todas' ? afterSubmit
+      .filter((elem) => elem.nameInput.includes(filterForNames)) : afterSubmit
+      .filter((elem) => elem.nameInput.includes(filterForNames))
+      .filter((e) => e.rareCard === filterRare);
+
+    const filterCards = filterTrunfo ? filterName
+      .filter((e) => e.trunfo === true) : filterName;
+
     return (
       <div>
         <h1>Tryunfo</h1>
@@ -125,7 +138,37 @@ class App extends React.Component {
           cardImage={ imageInput }
           onInputChange={ this.handleChange }
         />
-        { afterSubmit.map((card) => (
+        <label htmlFor="ids">
+          Filtrar
+          <input
+            onChange={ this.handleChange }
+            name="filterForNames"
+            data-testid="name-filter"
+            type="text"
+            disabled={ filterTrunfo }
+          />
+        </label>
+        <select
+          name="filterRare"
+          onChange={ this.handleChange }
+          data-testid="rare-filter"
+          disabled={ filterTrunfo }
+        >
+          <option>todas</option>
+          <option>normal</option>
+          <option>raro</option>
+          <option>muito raro</option>
+        </select>
+        <label htmlFor="ids">
+          Super Trunfo
+          <input
+            onChange={ this.handleChange }
+            name="filterTrunfo"
+            data-testid="trunfo-filter"
+            type="checkbox"
+          />
+        </label>
+        { filterCards.map((card) => (
           <div id={ card.nameInput } key={ card.descriptionInput }>
             <Card
               cardName={ card.nameInput }
